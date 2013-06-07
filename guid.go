@@ -16,6 +16,26 @@ var (
     ErrInvalid error // Parsed value is not a valid Guid
 )
 
+// hex character lookup table
+var hextable = [...]byte{
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 16, 16, 16, 16, 16,
+    16, 10, 11, 12, 13, 14, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 10, 11, 12, 13, 14, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+}
+
 func init() {
     ErrInvalid = errors.New("guid: invalid format")
 }
@@ -41,7 +61,7 @@ func IsGuid(s string) bool {
     }
     for _, sub := range [...]string{s[0:8], s[9:13], s[14:18], s[19:23], s[24:36]} {
         for i := 0; i < len(sub); i++ {
-            if hextodec(sub[i]) == 255 {
+            if hextable[sub[i]] == 16 {
                 return false
             }
         }
@@ -61,30 +81,15 @@ func ParseString(s string) (*Guid, error) {
     offset := 0
     for _, sub := range [...]string{s[0:8], s[9:13], s[14:18], s[19:23], s[24:36]} {
         for i := 0; i < len(sub); i, offset = i+2, offset+1 {
-            c0 := hextodec(sub[i])
-            c1 := hextodec(sub[i+1])
-            if (c0 | c1) == 255 {
+            c0 := hextable[sub[i]]
+            c1 := hextable[sub[i+1]]
+            if c0 == 16 || c1 == 16 {
                 return nil, ErrInvalid
             }
             g[offset] = c0<<4 | c1
         }
     }
     return g, nil
-}
-
-// hextodec is a helper function that converts a hexadecimal character to
-// its decimal value
-func hextodec(c byte) byte {
-    if c >= '0' && c <= '9' {
-        return c - '0'
-    }
-    if c >= 'a' && c <= 'f' {
-        return c - 'a' + 10
-    }
-    if c >= 'A' && c <= 'F' {
-        return c - 'A' + 10
-    }
-    return 255      // represents invalid character
 }
 
 // String returns a standard hexadecimal string version of the Guid.

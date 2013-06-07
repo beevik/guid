@@ -1,8 +1,8 @@
 package guid_test
 
 import (
-    "guid"
     "fmt"
+    "guid"
 )
 
 // Parse a string containing a guid.
