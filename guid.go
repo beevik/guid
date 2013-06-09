@@ -51,6 +51,12 @@ func New() *Guid {
     return g
 }
 
+// NewString is a helper function that returns a random RFC 4122-comformant version
+// 4 Guid as a string.
+func NewString() string {
+    return New().String()
+}
+
 // IsGuid returns true if the string contains a properly formatted Guid.
 func IsGuid(s string) bool {
     if len(s) != 36 {

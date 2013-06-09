@@ -26,7 +26,7 @@ func TestParseString(t *testing.T) {
         "3D7670ff-98CC-42D3-41E4-B09177487D0C",
         "33C69DB0-D895-4D6F-7128-1855D3995742",
     }
-    var goodGuidBytes = [...][16]byte {
+    var goodGuidBytes = [...][16]byte{
         {14, 84, 92, 156, 249, 66, 73, 136, 74, 176, 100, 82, 116, 207, 173, 237},
         {34, 226, 192, 139, 130, 189, 68, 154, 127, 199, 111, 249, 85, 139, 167, 51},
         {61, 118, 112, 255, 152, 204, 66, 211, 65, 228, 176, 145, 119, 72, 125, 12},
@@ -36,7 +36,7 @@ func TestParseString(t *testing.T) {
         if !IsGuid(s) {
             t.Errorf("good guid '%v' failed IsGuid test\n", s)
         }
-        g, err := ParseString(s);
+        g, err := ParseString(s)
         if err != nil {
             t.Errorf("good guid '%v' failed to parse [%v]\n", s, err)
         }
