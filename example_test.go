@@ -2,7 +2,7 @@ package guid_test
 
 import (
     "fmt"
-    "guid"
+    "github.com/beevik/guid"
 )
 
 // Parse a string containing a guid.
