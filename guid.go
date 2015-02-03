@@ -12,9 +12,9 @@ import (
 // Guid is a globally unique 16 byte identifier
 type Guid [16]byte
 
-var (
-	ErrInvalid error // Parsed string is not a valid Guid
-)
+// ErrInvalid is returned when parsing a string that is not formatted
+// as a valid guid.
+var ErrInvalid = errors.New("guid: invalid format")
 
 // hex character lookup table
 var hextable = [...]byte{
@@ -50,10 +50,6 @@ var hextable = [...]byte{
 	0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
 	0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
 	0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
-}
-
-func init() {
-	ErrInvalid = errors.New("guid: invalid format")
 }
 
 // New generates a random RFC 4122-conformant version 4 Guid.
