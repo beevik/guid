@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/beevik/guid.svg?branch=master)](https://travis-ci.org/beevik/guid)
+[![GoDoc](https://godoc.org/github.com/beevik/guid?status.svg)](https://godoc.org/github.com/beevik/guid)
+
 guid
 ====
 
