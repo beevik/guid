@@ -11,19 +11,19 @@ according to [RFC-4122](http://www.ietf.org/rfc/rfc4122.txt).
 See http://godoc.org/github.com/beevik/guid for the godoc-formatted API
 documentation.
 
-###Example: Parsing a guid
+### Example: Parsing a guid
 
 ```go
 g, err := guid.ParseString("67a23ff3-20be-4420-9274-d16f2833d595")
 ```
 
-###Example: Generating a random guid
+### Example: Generating a random guid
 
 ```go
 g := guid.New()
 ```
 
-###Example: Validating a guid string
+### Example: Validating a guid string
 
 ```go
 s0 := "67a23ff3-20be-4420-9274-d16f2833d595"
@@ -38,7 +38,7 @@ s0 a guid?  true
 s1 a guid?  false
 ```
 
-###Example: Converting a guid to a string
+### Example: Converting a guid to a string
 
 ```go
 for i := 0; i < 4; i++ {
